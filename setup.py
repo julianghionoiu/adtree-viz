@@ -12,10 +12,10 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name='adtree-viz',
     packages=[
-        'adtree-viz',
+        'adtree',
     ],
     package_dir={'': 'src'},
-    install_requires=[],
+    install_requires=['graphviz==0.16'],
     version=VERSION,
     description='adtree-viz',
     long_description=(this_directory / "README.md").read_text(),

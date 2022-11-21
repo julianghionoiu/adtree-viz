@@ -1,8 +1,24 @@
 # adtree-viz
 
+## Intro
+
+An Attack-Defense Tree modelling lib that allows user to model attack-defense scenarios using an internal DSL.
+
+Project inspired by https://github.com/hyakuhei/attackTrees and https://github.com/tahti/ADTool2.
+
+The main goals are:
+- add support for AND nodes
+- be able to break down a large tree into multiple subtrees.
+- keep it simple, only Attack and Defense nodes
+
+## Usage
+
+TODO
+
 ## Getting started
 
 Requirements:
+- `Graphviz`
 - `Python 3.9`
 
 Create a venv
@@ -20,10 +36,15 @@ Install deps
 pip install -r requirements.txt
 ```
 
+Run tests
+```shell
+PYTHONPATH=src python -m pytest
+```
+
+
 ## Release to Github and PyPi
 
-Run
-
+Create tag and push
 ```
 ./release.sh
 ```

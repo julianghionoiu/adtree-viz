@@ -11,6 +11,10 @@ jobs:
         with:
           submodules: 'true'
 
+      # ~~~~~~~~~~~~~ Graphviz ~~~~~~~~~~~~~
+      - name: Setup Graphviz
+        uses: ts-graphviz/setup-graphviz@v1
+
       # ~~~~~~~~~~~~~ Python setup ~~~~~~~~~~~~~
       - name: Set up Python
         uses: actions/setup-python@v4
