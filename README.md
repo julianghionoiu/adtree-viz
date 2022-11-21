@@ -20,21 +20,27 @@ Install deps
 pip install -r requirements.txt
 ```
 
-## Distributable
-
-Run the below to generate a distributable archive:
-
-```bash
-python3 -m build
-```
-
-The `tdl-client-python-x.xx.x.tar.gz` archive can be found in the `dist` folder.
-
-
 ## Release to Github and PyPi
 
 Run
 
 ```
 ./release.sh
+```
+
+## Manually build and release
+
+Run the below to generate a distributable archive:
+```bash
+python3 -m build
+```
+
+The `adtree-viz-x.xx.x.tar.gz` archive can be found in the `dist` folder.
+
+Deploy to PyPi
+```shell
+python3 -m twine upload -r pypi dist/*
+
+# Use __token__ as username
+# Use PyPi API TOKEN as password
 ```
