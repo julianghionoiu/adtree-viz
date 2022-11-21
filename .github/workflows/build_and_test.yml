@@ -1,0 +1,27 @@
+name: Python behave test
+
+on: [push]
+
+jobs:
+  build-and-test:
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+
+      # ~~~~~~~~~~~~~ Python setup ~~~~~~~~~~~~~
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          architecture: 'x64'
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+        # ~~~~~~~~~~~~~ Run acceptance test ~~~~~~~~~~~~~
+      - name: Run behave
+        run: behave
