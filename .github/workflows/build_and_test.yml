@@ -22,6 +22,6 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-        # ~~~~~~~~~~~~~ Run acceptance test ~~~~~~~~~~~~~
-      - name: Run behave
-        run: behave
+        # ~~~~~~~~~~~~~ Run test ~~~~~~~~~~~~~
+      - name: Run pytest
+        run: pytest
