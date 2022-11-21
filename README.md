@@ -31,7 +31,7 @@ python3 -m build
 The `tdl-client-python-x.xx.x.tar.gz` archive can be found in the `dist` folder.
 
 
-# To release
+## Release to Github and PyPi
 
 Run
 

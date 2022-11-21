@@ -19,6 +19,7 @@ setup(
     version=VERSION,
     description='adtree-viz',
     long_description=(this_directory / "README.md").read_text(),
+    long_description_content_type="text/markdown",
     author='Julian Ghionoiu',
     author_email='julian.ghionoiu@gmail.com',
     url='https://github.com/julianghionoiu/adtree-viz',

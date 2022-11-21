@@ -1,4 +1,4 @@
-name: Python behave test
+name: Python test
 
 on: [push]
 
