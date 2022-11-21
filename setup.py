@@ -24,6 +24,6 @@ setup(
     author_email='julian.ghionoiu@gmail.com',
     url='https://github.com/julianghionoiu/adtree-viz',
     download_url='https://github.com/julianghionoiu/adtree-viz/archive/v{0}.tar.gz'.format(VERSION),
-    keywords=['kata', 'activemq', 'rpc'],
+    keywords=['attack-defence', 'adtree'],
     classifiers=[],
 )
