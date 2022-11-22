@@ -179,16 +179,20 @@ def test_render_simple_tree():
         ]),
     ])
 
-    renderer = Renderer(theme=RedBlueFillTheme(), output_format="png")
+    theme = RedBlueFillTheme()
+    test_code = inspect.currentframe().f_code
 
-    filename_without_extension, ext = os.path.splitext(inspect.currentframe().f_code.co_filename)
-    output_file_base = "{0}.{1}".format(filename_without_extension, inspect.currentframe().f_code.co_name)
+    _render_and_compare(root_node, test_code, theme)
+
+
+def _render_and_compare(root_node, test_code, theme):
+    renderer = Renderer(theme=theme, output_format="png")
+    filename_without_extension, ext = os.path.splitext(test_code.co_filename)
+    output_file_base = "{0}.{1}".format(filename_without_extension, test_code.co_name)
     actual_output_file = "{0}.actual.dot".format(output_file_base)
     expected_output_file = "{0}.expected.dot".format(output_file_base)
-
     renderer.render(root_node=root_node, filename=actual_output_file)
-
     assert filecmp.cmp(expected_output_file, actual_output_file), "dot file differs from expected"
-    assert filecmp.cmp(expected_output_file+".png", actual_output_file+".png"), "png file differs from expected"
+    assert filecmp.cmp(expected_output_file + ".png", actual_output_file + ".png"), "png file differs from expected"
 
 
