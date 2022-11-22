@@ -13,6 +13,11 @@ The main goals are:
 
 ## Usage
 
+Requirements:
+- `Graphviz`
+- `Python 3.9`
+
+
 Install the library
 ```shell
 pip install adtree-viz
@@ -47,11 +52,8 @@ renderer.render(root_node=root_node, filename="my-adtree")
 The above should produce an attack-defence tree like this:
 ![attack-defence tree](images/example_usage.png)
 
-## Getting started
 
-Requirements:
-- `Graphviz`
-- `Python 3.9`
+## Development
 
 Create a venv
 ```shell
