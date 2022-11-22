@@ -13,7 +13,36 @@ The main goals are:
 
 ## Usage
 
-TODO
+Install the library
+```shell
+pip install adtree-viz
+```
+
+Quick start
+```python
+from adtree.models import Attack, Defence, AndGate
+from adtree.renderer import Renderer
+from adtree.themes import RedBlueFillTheme
+
+root_node = Attack("the goal", [
+    Attack("path1", [
+        Defence("defend path1", [
+            Attack("path1 defence defeated")
+        ])
+    ]),
+    Attack("path2", [
+        Attack("path2.1"),
+        AndGate([
+            Attack("path3.1"),
+            Attack("path3.2"),
+        ]),
+    ]),
+])
+
+theme = RedBlueFillTheme()
+renderer = Renderer(theme=theme, output_format="png", view=True)
+renderer.render(root_node=root_node, filename="my-adtree")
+```
 
 ## Getting started
 
