@@ -28,4 +28,4 @@ jobs:
 
         # ~~~~~~~~~~~~~ Run test ~~~~~~~~~~~~~
       - name: Run pytest
-        run: pytest
+        run: PYTHONPATH=src python -m pytest
