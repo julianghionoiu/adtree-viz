@@ -13,8 +13,8 @@
         "fontname":"Arial",
         "margin":"0.2"
     },
-    "_unimplemented_override":{
-        "color":"#b0c1cf",
+    "AndGate":{
+        "color":"#5cc1ff",
         "shape":"plaintext",
         "style":"filled, rounded",
         "fontname":"Arial",
@@ -23,6 +23,13 @@
     "Edge":{
         "fontname":"Arial",
         "color":"#1f1f1f"
+    },
+    "_unimplemented_override":{
+        "color":"#b0c1cf",
+        "shape":"plaintext",
+        "style":"filled, rounded",
+        "fontname":"Arial",
+        "margin":"0.2"
     },
     "_unimplemented_edge":{
         "color":"#919191",

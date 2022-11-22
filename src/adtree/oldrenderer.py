@@ -1,15 +1,15 @@
 import json
 from graphviz import Digraph
-from adtree.models import Attack, Defence, Node
+from adtree.models import OldAttack, OldDefence, OldNode
 
 from importlib import resources
 import logging
 
 
-class Renderer(object):
+class OldRenderer(object):
     def _buildDot(
         self,
-        node: Node,
+        node: OldNode,
         dot: Digraph,
         mapped_edges: dict = {},
         dotformat: dict = {},
@@ -24,7 +24,7 @@ class Renderer(object):
             # Overload the default formatting shape if the Node is flagged as unimplemented
 
             node_label = node.label
-            if isinstance(node, Defence):
+            if isinstance(node, OldDefence):
                 defended_path = True
             dot.node(node.uniq, node.label, **node_attr)
         else:
@@ -63,7 +63,7 @@ class Renderer(object):
         return style
 
     def buildDot(
-        self, root: Node = None, style: dict = None
+        self, root: OldNode = None, style: dict = None
     ):
         if root is None:
             return None
@@ -84,7 +84,7 @@ class Renderer(object):
 
     def render(
         self,
-        root: Node = None,
+        root: OldNode = None,
         style: dict = None,
         fname: str = "attacktree-graph",
         fout: str = "png",

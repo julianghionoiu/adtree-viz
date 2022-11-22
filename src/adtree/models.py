@@ -1,7 +1,7 @@
 import uuid
 
 
-class Node(object):
+class OldNode(object):
     def __init__(self, label="Anonymous"):
         self.label = label
         # TODO: Remove this it's not needed, it's kinda here to make rendering work
@@ -13,7 +13,7 @@ class Node(object):
     # we just maintain a list of backward references that we can draw in later.
     # It's clunky but
     def connect_to(self, child_node, label=""):
-        edge = Edge(parent_node=self, child_node=child_node, label=label)
+        edge = OldEdge(parent_node=self, child_node=child_node, label=label)
 
         self.edges.append(edge)
         child_node.parentEdges.append(edge)
@@ -24,13 +24,13 @@ class Node(object):
 
     # shortcut to create a connected action
     def add_attack(self, label: str, edge_label: str = ""):
-        a = Attack(label)
+        a = OldAttack(label)
         self.connect_to(a, edge_label)
         return a
 
     # shortcut to create a connected block
     def add_defence(self, label: str, edge_label: str= ""):
-        b = Defence(label)
+        b = OldDefence(label)
         self.connect_to(b, edge_label)
         return b
 
@@ -38,7 +38,7 @@ class Node(object):
         return f"{self.__class__.__name__}:{id(self)}"
 
 
-class Edge:
+class OldEdge:
     childNode = None
     label = ""
     metadata = None
@@ -61,16 +61,15 @@ class Edge:
         return self.describe()
 
 
-class Attack(Node):
+class OldAttack(OldNode):
     def __init__(
             self,
             label: str,
     ):
         super().__init__(label=label)
-        # self.metadata = [] ## I don't have a need for this right now, so removing it,but I expect to need it later.
 
 
-class Defence(Node):
+class OldDefence(OldNode):
     def __init__(
             self,
             label: str,
