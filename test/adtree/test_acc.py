@@ -48,4 +48,3 @@ def _render_and_compare(root_node, test_code, theme):
     expected_output_file = "{0}.expected.dot".format(output_file_base)
     renderer.render(root_node=root_node, filename=actual_output_file)
     assert filecmp.cmp(expected_output_file, actual_output_file), "dot file differs from expected"
-    assert filecmp.cmp(expected_output_file + ".png", actual_output_file + ".png"), "png file differs from expected"
