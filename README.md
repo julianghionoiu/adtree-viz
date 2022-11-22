@@ -44,6 +44,9 @@ renderer = Renderer(theme=theme, output_format="png", view=True)
 renderer.render(root_node=root_node, filename="my-adtree")
 ```
 
+The above should produce an attack-defence tree like this:
+![attack-defence tree](images/example_usage.png)
+
 ## Getting started
 
 Requirements:
