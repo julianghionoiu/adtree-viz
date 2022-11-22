@@ -1,77 +1,36 @@
-import uuid
+from __future__ import annotations
+
+from typing import List
 
 
-class OldNode(object):
-    def __init__(self, label="Anonymous"):
+class Node(object):
+    def __init__(self, label: str = "", child_nodes: List[Node] = None):
         self.label = label
-        # TODO: Remove this it's not needed, it's kinda here to make rendering work
-        self.uniq = uuid.uuid4().hex
-        self.edges = []
-        self.parentEdges = []  # backref
+        if child_nodes is None:
+            self.child_nodes = []
+        else:
+            self.child_nodes = child_nodes
 
-    # Backref means we don't actually create a real edge,
-    # we just maintain a list of backward references that we can draw in later.
-    # It's clunky but
-    def connect_to(self, child_node, label=""):
-        edge = OldEdge(parent_node=self, child_node=child_node, label=label)
+    def get_label(self) -> str:
+        return self.label
 
-        self.edges.append(edge)
-        child_node.parentEdges.append(edge)
-        return child_node
-
-    def get_edges(self):
-        return self.edges
-
-    # shortcut to create a connected action
-    def add_attack(self, label: str, edge_label: str = ""):
-        a = OldAttack(label)
-        self.connect_to(a, edge_label)
-        return a
-
-    # shortcut to create a connected block
-    def add_defence(self, label: str, edge_label: str= ""):
-        b = OldDefence(label)
-        self.connect_to(b, edge_label)
-        return b
+    def get_child_nodes(self) -> List[Node]:
+        return self.child_nodes
 
     def __repr__(self):
-        return f"{self.__class__.__name__}:{id(self)}"
+        return f"{self.__class__.__name__}:{self.label}"
 
 
-class OldEdge:
-    childNode = None
-    label = ""
-    metadata = None
-
-    def __init__(self, parent_node, child_node, label):
-        self.parentNode = parent_node
-        self.childNode = child_node
-        self.label = label
-        self.evaluated = False
-
-    # Edge types:
-    # Succeeds Undetected
-    # Succeeds Detected
-    # Fails Undetected
-
-    def describe(self):
-        return f"Edge '{self.label}' connects '{self.parentNode.label}' to '{self.childNode.label}'"
-
-    def __repr__(self):
-        return self.describe()
+class Attack(Node):
+    def __init__(self, label: str = "", child_nodes: List[Node] = None):
+        super().__init__(label=label, child_nodes=child_nodes)
 
 
-class OldAttack(OldNode):
-    def __init__(
-            self,
-            label: str,
-    ):
-        super().__init__(label=label)
+class Defence(Node):
+    def __init__(self, label: str = "", child_nodes: List[Node] = None):
+        super().__init__(label=label, child_nodes=child_nodes)
 
 
-class OldDefence(OldNode):
-    def __init__(
-            self,
-            label: str,
-    ):
-        super().__init__(label=label)
+class AndGate(Node):
+    def __init__(self, child_nodes: List[Node] = None):
+        super().__init__(label="AND", child_nodes=child_nodes)
