@@ -46,12 +46,26 @@ def test_share_node():
         ]),
         Attack("path2", [
             shared_node
+        ]),
+    ])
+
+    _render_and_compare(tree, inspect.currentframe().f_code, NoFormatTheme())
+
+
+def test_do_not_share_and_gate():
+    tree = Attack("don't share AND", [
+        AndGate([
+            Attack("path1"),
+            Attack("path2")
+        ]),
+        AndGate([
+            Attack("path3"),
+            Attack("path4")
         ])
     ])
 
-    _render_and_compare(tree,
-                        inspect.currentframe().f_code,
-                        NoFormatTheme())
+    _render_and_compare(tree, inspect.currentframe().f_code, NoFormatTheme())
+
 
 
 # ~~~~~~~~~~~~ Test support files ~~~~~~~~~~
