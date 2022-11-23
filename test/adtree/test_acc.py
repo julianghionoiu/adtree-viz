@@ -6,10 +6,10 @@ import os
 
 from adtree.models import Attack, Defence, AndGate
 from adtree.renderer import Renderer
-from adtree.themes import RedBlueFillTheme, RedGreenOutlineTheme
+from adtree.themes import RedBlueFillTheme, RedGreenOutlineTheme, NoFormatTheme
 
 
-def create_test_tree():
+def create_tree_will_all_types_of_nodes():
     return Attack("the goal", [
         Attack("path1", [
             Defence("defend path1", [
@@ -27,15 +27,31 @@ def create_test_tree():
 
 
 def test_render_fill_theme():
-    _render_and_compare(create_test_tree(),
+    _render_and_compare(create_tree_will_all_types_of_nodes(),
                         inspect.currentframe().f_code,
                         RedBlueFillTheme())
 
 
 def test_render_outline_theme():
-    _render_and_compare(create_test_tree(),
+    _render_and_compare(create_tree_will_all_types_of_nodes(),
                         inspect.currentframe().f_code,
                         RedGreenOutlineTheme())
+
+
+def test_share_node():
+    shared_node = Attack("shared node", [Defence("node 1 defence")])
+    tree = Attack("root", [
+        Attack("path1", [
+            shared_node
+        ]),
+        Attack("path2", [
+            shared_node
+        ])
+    ])
+
+    _render_and_compare(tree,
+                        inspect.currentframe().f_code,
+                        NoFormatTheme())
 
 
 # ~~~~~~~~~~~~ Test support files ~~~~~~~~~~

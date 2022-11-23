@@ -19,17 +19,18 @@ class Renderer(object):
         dot = Graph(graph_attr=self.theme.get_graph_attrs(),
                     format=self.output_format)
 
-        self._add_node(dot, "R", root_node)
+        node_cache = set()
+        self._add_node(dot, root_node, node_cache)
 
         dot.render(filename, view=self.view)
 
-    def _add_node(self, dot: Graph, current_id: str, current_node: Node):
+    def _add_node(self, dot: Graph, current_node: Node, node_cache: set[str]):
         node_attrs = self.theme.get_node_attrs_for(current_node)
-        dot.node(current_id, current_node.label, **node_attrs)
+        dot.node(current_node.get_id(), current_node.get_label(), **node_attrs)
+        node_cache.add(current_node.get_id())
 
         for child_index, child_node in enumerate(current_node.get_child_nodes()):
-            child_id = current_id + "." + str(child_index)
-
-            self._add_node(dot, child_id, child_node)
+            if child_node.get_id() not in node_cache:
+                self._add_node(dot, child_node, node_cache)
             edge_attrs = self.theme.get_edge_attrs_for(current_node, child_node)
-            dot.edge(current_id, child_id, **edge_attrs)
+            dot.edge(current_node.get_id(), child_node.get_id(), **edge_attrs)
