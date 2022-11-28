@@ -63,8 +63,14 @@ class ADTree(Node):
         super().__init__(type=root_node.type, label=root_node.label, child_nodes=root_node.child_nodes)
         self.reference_id = reference_id
 
+    def get_reference_id(self):
+        return self.reference_id
+
 
 class ExternalADTree(Node):
     def __init__(self, reference_id: str = "", label: str = ""):
         super().__init__(type=NodeType.ATTACK, label=label)
         self.reference_id = reference_id
+
+    def get_reference_id(self):
+        return self.reference_id

@@ -1,0 +1,9 @@
+graph {
+	"164546f60261c7e4be0c5f5f9aaeec86" [label=node1]
+	ef5473ee1c9a1c76e4fb020110da75fe [label="External resource covered by other docs"]
+	"164546f60261c7e4be0c5f5f9aaeec86" -- ef5473ee1c9a1c76e4fb020110da75fe
+	a06ea8366ee1c47a5ba7add1f1be8f16 [label="internal path1"]
+	c0d1da3003be404e23ced873de24d600 [label="path 1.1"]
+	a06ea8366ee1c47a5ba7add1f1be8f16 -- c0d1da3003be404e23ced873de24d600
+	"164546f60261c7e4be0c5f5f9aaeec86" -- a06ea8366ee1c47a5ba7add1f1be8f16
+}

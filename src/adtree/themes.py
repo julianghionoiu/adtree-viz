@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from adtree.models import Node, NodeType
+from adtree.models import Node, NodeType, ADTree
 
 
 class Theme(ABC):
     @abstractmethod
-    def get_graph_attrs(self):
+    def get_graph_attrs(self, tree: ADTree):
         pass
 
     @abstractmethod
@@ -21,7 +21,7 @@ class Theme(ABC):
 
 class NoFormatTheme(Theme):
 
-    def get_graph_attrs(self):
+    def get_graph_attrs(self, tree: ADTree):
         return {}
 
     def get_node_attrs_for(self, node: Node):
@@ -33,12 +33,15 @@ class NoFormatTheme(Theme):
 
 class BaseTheme(Theme):
 
-    def get_graph_attrs(self):
+    def get_graph_attrs(self, tree: ADTree):
         return {
             "overlap": "False",
             "splines": "True",
             "nodesep": "0.2",
-            "ranksep": "0.4"
+            "ranksep": "0.4",
+            "label": tree.get_reference_id() + " - " + tree.get_label(),
+            "labelloc": "t",
+            "labeljust": "l",
         }
 
     def get_node_attrs_for(self, node: Node):

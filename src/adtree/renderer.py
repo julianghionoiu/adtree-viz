@@ -16,9 +16,8 @@ class Renderer(object):
             self.theme = theme
 
     def render(self, tree: ADTree, filename: str = "attacktree-graph"):
-        graph_attr = {}
-        dot = Graph(graph_attr=self.theme.get_graph_attrs(),
-                    format=self.output_format)
+        dot = Graph(graph_attr=self.theme.get_graph_attrs(tree),
+                    format=self.output_format, )
 
         node_cache = set()
         self._add_node(dot, tree, node_cache)
