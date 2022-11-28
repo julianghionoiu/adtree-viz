@@ -6,7 +6,7 @@ from adtree.models import Attack, ADTree, ExternalADTree
 from adtree.themes import NoFormatTheme
 
 
-def build_tree():
+def build_test_tree():
     some_external_ref = ExternalADTree("EXT.01", "External resource covered by other docs")
     some_internal_ref1 = ADTree("INT.01", root_node=Attack("internal path1", [
         Attack("path 1.1", [
@@ -21,12 +21,22 @@ def build_tree():
         some_internal_ref1,
         some_internal_ref2
     ]))
-    return tree
+    return {
+        "tree": tree,
+        "internal_ref_to_expand": some_internal_ref1
+    }
 
 
 def test_references_default(approvals):
-    approvals.verify(build_tree(), inspect.currentframe().f_code, NoFormatTheme())
+    test_tree_obj = build_test_tree()
+    approvals.verify(tree=test_tree_obj["tree"],
+                     theme=NoFormatTheme(),
+                     test_code=inspect.currentframe().f_code)
 
 
-def test_references_all_toggled(approvals):
-    approvals.verify(build_tree(), inspect.currentframe().f_code, NoFormatTheme())
+def test_references_some_toggled(approvals):
+    test_tree_obj = build_test_tree()
+    approvals.verify(tree=test_tree_obj["tree"],
+                     subtrees_to_expand=[test_tree_obj["internal_ref_to_expand"]],
+                     theme=NoFormatTheme(),
+                     test_code=inspect.currentframe().f_code)

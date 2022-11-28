@@ -12,19 +12,24 @@ class NodeType(Enum):
 
 
 class Node(object):
-    def __init__(self, type: NodeType = NodeType.ATTACK, label: str = "", child_nodes: List[Node] = None):
-        self.type = type
+    def __init__(self,
+                 node_type: NodeType = NodeType.ATTACK,
+                 label: str = "",
+                 reference_id: str = "",
+                 child_nodes: List[Node] = None):
+        self.node_type = node_type
         self.label = label
-        if child_nodes is None:
-            self.child_nodes = []
-        else:
-            self.child_nodes = child_nodes
+        self.reference_id = reference_id
+        self.child_nodes = [] if child_nodes is None else child_nodes
 
     def get_id(self) -> str:
         return hashlib.md5(self.label.encode()).hexdigest()
 
-    def get_type(self) -> NodeType:
-        return self.type
+    def get_reference_id(self) -> str:
+        return self.reference_id
+
+    def get_node_type(self) -> NodeType:
+        return self.node_type
 
     def get_label(self) -> str:
         return self.label
@@ -38,17 +43,23 @@ class Node(object):
 
 class Attack(Node):
     def __init__(self, label: str = "", child_nodes: List[Node] = None):
-        super().__init__(type=NodeType.ATTACK, label=label, child_nodes=child_nodes)
+        super().__init__(node_type=NodeType.ATTACK,
+                         label=label,
+                         child_nodes=child_nodes)
 
 
 class Defence(Node):
     def __init__(self, label: str = "", child_nodes: List[Node] = None):
-        super().__init__(type=NodeType.DEFENCE, label=label, child_nodes=child_nodes)
+        super().__init__(node_type=NodeType.DEFENCE,
+                         label=label,
+                         child_nodes=child_nodes)
 
 
 class AndGate(Node):
     def __init__(self, child_nodes: List[Node] = None):
-        super().__init__(type=NodeType.AND_GATE, label="AND", child_nodes=child_nodes)
+        super().__init__(node_type=NodeType.AND_GATE,
+                         label="AND",
+                         child_nodes=child_nodes)
 
     def get_id(self) -> str:
         # Set ID as the hash of all children labels
@@ -60,17 +71,14 @@ class AndGate(Node):
 
 class ADTree(Node):
     def __init__(self, reference_id: str = "", root_node: Node = None):
-        super().__init__(type=root_node.type, label=root_node.label, child_nodes=root_node.child_nodes)
-        self.reference_id = reference_id
-
-    def get_reference_id(self):
-        return self.reference_id
+        super().__init__(node_type=root_node.node_type,
+                         label=root_node.label,
+                         reference_id=reference_id,
+                         child_nodes=root_node.child_nodes)
 
 
 class ExternalADTree(Node):
     def __init__(self, reference_id: str = "", label: str = ""):
-        super().__init__(type=NodeType.ATTACK, label=label)
-        self.reference_id = reference_id
-
-    def get_reference_id(self):
-        return self.reference_id
+        super().__init__(node_type=NodeType.ATTACK,
+                         label=label,
+                         reference_id=reference_id)

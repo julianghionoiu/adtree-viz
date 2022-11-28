@@ -17,7 +17,9 @@ def test_share_node(approvals):
         ]),
     ]))
 
-    approvals.verify(tree, inspect.currentframe().f_code, NoFormatTheme())
+    approvals.verify(tree=tree,
+                     theme=NoFormatTheme(),
+                     test_code=inspect.currentframe().f_code)
 
 
 def test_do_not_share_and_gate(approvals):
@@ -32,4 +34,6 @@ def test_do_not_share_and_gate(approvals):
         ])
     ]))
 
-    approvals.verify(tree, inspect.currentframe().f_code, NoFormatTheme())
+    approvals.verify(tree=tree,
+                     theme=NoFormatTheme(),
+                     test_code=inspect.currentframe().f_code)

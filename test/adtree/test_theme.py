@@ -24,8 +24,12 @@ def build_tree():
 
 
 def test_render_fill(approvals):
-    approvals.verify(build_tree(), inspect.currentframe().f_code, RedBlueFillTheme())
+    approvals.verify(tree=build_tree(),
+                     theme=RedBlueFillTheme(),
+                     test_code=inspect.currentframe().f_code)
 
 
 def test_render_outline(approvals):
-    approvals.verify(build_tree(), inspect.currentframe().f_code, RedGreenOutlineTheme())
+    approvals.verify(tree=build_tree(),
+                     theme=RedGreenOutlineTheme(),
+                     test_code=inspect.currentframe().f_code)

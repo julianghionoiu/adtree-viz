@@ -1,16 +1,13 @@
 graph {
 	graph [label="REFS.01 - node1"]
 	"164546f60261c7e4be0c5f5f9aaeec86" [label=node1]
-	ef5473ee1c9a1c76e4fb020110da75fe [label="External resource covered by other docs"]
+	ef5473ee1c9a1c76e4fb020110da75fe [label="External resource covered by other docs
+(EXT.01)"]
 	"164546f60261c7e4be0c5f5f9aaeec86" -- ef5473ee1c9a1c76e4fb020110da75fe
-	a06ea8366ee1c47a5ba7add1f1be8f16 [label="internal path1"]
-	c0d1da3003be404e23ced873de24d600 [label="path 1.1"]
-	"5814e29eb73616bfe4e8de74e6e849f4" [label="nested path 1.1A"]
-	c0d1da3003be404e23ced873de24d600 -- "5814e29eb73616bfe4e8de74e6e849f4"
-	a06ea8366ee1c47a5ba7add1f1be8f16 -- c0d1da3003be404e23ced873de24d600
+	a06ea8366ee1c47a5ba7add1f1be8f16 [label="internal path1
+(INT.01)"]
 	"164546f60261c7e4be0c5f5f9aaeec86" -- a06ea8366ee1c47a5ba7add1f1be8f16
-	"88864649774514362263e91896e0e8d8" [label="internal path2"]
-	"33d3644776cad4703f71f3b853a3ab66" [label="path 2.1"]
-	"88864649774514362263e91896e0e8d8" -- "33d3644776cad4703f71f3b853a3ab66"
+	"88864649774514362263e91896e0e8d8" [label="internal path2
+(INT.02)"]
 	"164546f60261c7e4be0c5f5f9aaeec86" -- "88864649774514362263e91896e0e8d8"
 }
