@@ -17,7 +17,8 @@ class Renderer(object):
 
     def render(self, tree: ADTree, filename: str = "attacktree-graph"):
         dot = Graph(graph_attr=self.theme.get_graph_attrs(tree),
-                    format=self.output_format, )
+                    format=self.output_format)
+        dot.graph_attr["label"] = tree.get_reference_id() + " - " + tree.get_label()
 
         node_cache = set()
         self._add_node(dot, tree, node_cache)
@@ -26,7 +27,9 @@ class Renderer(object):
 
     def _add_node(self, dot: Graph, current_node: Node, node_cache: set[str]):
         node_attrs = self.theme.get_node_attrs_for(current_node)
-        dot.node(current_node.get_id(), current_node.get_label(), **node_attrs)
+        label = current_node.get_label()
+
+        dot.node(current_node.get_id(), label, **node_attrs)
         node_cache.add(current_node.get_id())
 
         for child_index, child_node in enumerate(current_node.get_child_nodes()):

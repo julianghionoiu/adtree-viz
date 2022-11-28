@@ -39,7 +39,6 @@ class BaseTheme(Theme):
             "splines": "True",
             "nodesep": "0.2",
             "ranksep": "0.4",
-            "label": tree.get_reference_id() + " - " + tree.get_label(),
             "labelloc": "t",
             "labeljust": "l",
         }
