@@ -9,7 +9,7 @@ from adtree.renderer import Renderer
 from adtree.themes import Theme
 
 
-class ApprovalAssertion:
+class Approvals:
 
     # noinspection PyMethodMayBeStatic
     def verify(self, root_node: Node, test_code, theme: Theme) -> None:
@@ -24,4 +24,4 @@ class ApprovalAssertion:
 
 @pytest.fixture(scope="session")
 def approvals():
-    return ApprovalAssertion()
+    return Approvals()
