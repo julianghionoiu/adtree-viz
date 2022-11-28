@@ -24,12 +24,13 @@ pip install adtree-viz
 ```
 
 Quick start
+
 ```python
-from adtree.models import Attack, Defence, AndGate
+from adtree.models import Attack, Defence, AndGate, ADTree
 from adtree.renderer import Renderer
 from adtree.themes import RedBlueFillTheme
 
-root_node = Attack("the goal", [
+tree = ADTree("REFS.01", Attack("the goal", [
     Attack("path1", [
         Defence("defend path1", [
             Attack("path1 defence defeated")
@@ -42,11 +43,11 @@ root_node = Attack("the goal", [
             Attack("path3.2"),
         ]),
     ]),
-])
+]))
 
 theme = RedBlueFillTheme()
 renderer = Renderer(theme=theme, output_format="png", view=True)
-renderer.render(root_node=root_node, filename="my-adtree")
+renderer.render(tree=tree, filename="my-adtree")
 ```
 
 The above should produce an attack-defence tree like this:

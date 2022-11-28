@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from adtree.models import Node, Attack, Defence, AndGate
+from adtree.models import Node, NodeType
 
 
 class Theme(ABC):
@@ -58,8 +58,8 @@ class BaseTheme(Theme):
             "style": "solid"
         }
 
-        if (node_parent.__class__ == Attack and node_child.__class__ == Defence) or (
-                node_parent.__class__ == Defence and node_child.__class__ == Attack):
+        if (node_parent.get_type() == NodeType.ATTACK and node_child.get_type() == NodeType.DEFENCE) or \
+                (node_parent.get_type() == NodeType.DEFENCE and node_child.get_type() == NodeType.ATTACK):
             return base_attrs | {
                 "style": "dashed"
             }
@@ -75,15 +75,15 @@ class RedBlueFillTheme(BaseTheme):
             "style": "filled, rounded"
         }
 
-        if node.__class__ == Attack:
+        if node.get_type() == NodeType.ATTACK:
             return base_attrs | {
                 "fillcolor": "#ff5c5c",
             }
-        elif node.__class__ == Defence:
+        elif node.get_type() == NodeType.DEFENCE:
             return base_attrs | {
                 "fillcolor": "#5cc1ff",
             }
-        elif node.__class__ == AndGate:
+        elif node.get_type() == NodeType.AND_GATE:
             return base_attrs | {
                 "shape": "triangle",
                 "color": "#ff5c5c",
@@ -104,17 +104,17 @@ class RedGreenOutlineTheme(BaseTheme):
             "style": "setlinewidth(3)",
         }
 
-        if node.__class__ == Attack:
+        if node.get_type() == NodeType.ATTACK:
             return base_attrs | {
                 "shape": "ellipse",
                 "color": "#ff5c5c",
             }
-        elif node.__class__ == Defence:
+        elif node.get_type() == NodeType.DEFENCE:
             return base_attrs | {
                 "shape": "box",
                 "color": "#27B011",
             }
-        elif node.__class__ == AndGate:
+        elif node.get_type() == NodeType.AND_GATE:
             return base_attrs | {
                 "shape": "triangle",
                 "color": "#ff5c5c",

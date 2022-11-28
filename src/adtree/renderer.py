@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from graphviz import Graph
 
-from adtree.models import Node
+from adtree.models import Node, ADTree
 from adtree.themes import Theme, NoFormatTheme
 
 
@@ -15,12 +15,13 @@ class Renderer(object):
         else:
             self.theme = theme
 
-    def render(self, root_node: Node, filename: str = "attacktree-graph"):
+    def render(self, tree: ADTree, filename: str = "attacktree-graph"):
+        graph_attr = {}
         dot = Graph(graph_attr=self.theme.get_graph_attrs(),
                     format=self.output_format)
 
         node_cache = set()
-        self._add_node(dot, root_node, node_cache)
+        self._add_node(dot, tree, node_cache)
 
         dot.render(filename, view=self.view)
 
