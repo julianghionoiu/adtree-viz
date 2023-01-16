@@ -15,7 +15,10 @@ def test_is_defended(approvals):
             ])
         ]),
         Attack("path2", [
-            Attack("path2.1"),
+            Attack("path2.1", [
+                Defence("def2.1"),
+                Attack("path2.1.1")
+            ]),
             AndGate([
                 Attack("path3.1"),
                 Attack("path3.2", [

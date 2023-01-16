@@ -101,9 +101,10 @@ And another file with one subtree expanded:
 Currently, there is only one analyser available, the IsDefendedAnalyser.
 Traverse the tree and mark each nodes as either defended or undefended
 A node is considered defended if:
- - is a Defence node and has no Attack children
- - is an Attack node and all child nodes are defended nodes
- - is an AndGate and at least one child node is defended
+1. is a Defence node and has no children
+2. is an Attack node and has a direct defended Defence node as child
+3. is an Attack or Defence node and all child nodes are defended nodes
+4. is an AndGate and at least one child node is defended
 
 Example with custom rendering of the defended nodes
 ```python
@@ -139,7 +140,10 @@ tree = ADTree("REFS.01", Attack("the goal", [
         ])
     ]),
     Attack("path2", [
-        Attack("path2.1"),
+        Attack("path2.1", [
+            Defence("def2.1"),
+            Attack("path2.1.1")
+        ]),
         AndGate([
             Attack("path3.1"),
             Attack("path3.2", [
