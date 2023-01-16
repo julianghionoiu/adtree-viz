@@ -1,0 +1,22 @@
+graph {
+	graph [label="REFS.01 - the goal"]
+	"53e3576063151552e2a3162ecdae479b" [label="the goal" fillcolor="#FFD3D6" style=filled]
+	d5470db95eafb48ab9921fa12a28fac9 [label=path1 fillcolor="#FFD3D6" style=filled]
+	"4384c1bc67b9bea12883d1a5963b893a" [label="defend path1" fillcolor="#FFD3D6" shape=box style=filled]
+	"13be8ec3376f48cb6eaf84474ee984cc" [label="path1 defence defeated" fillcolor="#FFD3D6" style=filled]
+	"4384c1bc67b9bea12883d1a5963b893a" -- "13be8ec3376f48cb6eaf84474ee984cc"
+	d5470db95eafb48ab9921fa12a28fac9 -- "4384c1bc67b9bea12883d1a5963b893a"
+	"53e3576063151552e2a3162ecdae479b" -- d5470db95eafb48ab9921fa12a28fac9
+	c832fc52362cfaac7cf87a517e289c3a [label=path2 fillcolor="#FFD3D6" style=filled]
+	"574f731b2509013086f9ce61dcb3685d" [label="path2.1" fillcolor="#FFD3D6" style=filled]
+	c832fc52362cfaac7cf87a517e289c3a -- "574f731b2509013086f9ce61dcb3685d"
+	"92146ab9a983afcea5d3ec9e4c08084e" [label=AND fillcolor="#C8FFCB" shape=triangle style=filled]
+	"1f7ea7af427f823a907caa8202ce42fa" [label="path3.1" fillcolor="#FFD3D6" style=filled]
+	"92146ab9a983afcea5d3ec9e4c08084e" -- "1f7ea7af427f823a907caa8202ce42fa"
+	"1511d06a89f805c276c896ec17b558b9" [label="path3.2" fillcolor="#C8FFCB" style=filled]
+	aad9d0810c4a88ba4cddacccbc57c4cf [label=defended fillcolor="#C8FFCB" shape=box style=filled]
+	"1511d06a89f805c276c896ec17b558b9" -- aad9d0810c4a88ba4cddacccbc57c4cf
+	"92146ab9a983afcea5d3ec9e4c08084e" -- "1511d06a89f805c276c896ec17b558b9"
+	c832fc52362cfaac7cf87a517e289c3a -- "92146ab9a983afcea5d3ec9e4c08084e"
+	"53e3576063151552e2a3162ecdae479b" -- c832fc52362cfaac7cf87a517e289c3a
+}
