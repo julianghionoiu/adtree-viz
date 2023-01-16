@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 from enum import Enum
+from types import MappingProxyType
 from typing import List
 
 
@@ -16,11 +17,13 @@ class Node(object):
                  node_type: NodeType = NodeType.ATTACK,
                  label: str = "",
                  reference_id: str = "",
-                 child_nodes: List[Node] = None):
+                 child_nodes: List[Node] = None,
+                 metadata: dict = MappingProxyType({})):
         self.node_type = node_type
         self.label = label
         self.reference_id = reference_id
         self.child_nodes = [] if child_nodes is None else child_nodes
+        self.metadata = {} | metadata
 
     def get_id(self) -> str:
         return hashlib.md5(self.label.encode()).hexdigest()
@@ -36,6 +39,15 @@ class Node(object):
 
     def get_child_nodes(self) -> List[Node]:
         return self.child_nodes
+
+    def add_metadata(self, key, value):
+        self.metadata[key] = value
+
+    def get_metadata(self, key):
+        return self.metadata[key] if key in self.metadata else None
+
+    def has_metadata(self, key):
+        return key in self.metadata
 
     def __repr__(self):
         return f"{self.__class__.__name__}:{self.label}"

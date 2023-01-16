@@ -119,6 +119,16 @@ Run tests
 PYTHONPATH=src python -m pytest
 ```
 
+Run individual test file
+```shell
+PYTHONPATH=src python -m pytest ./test/adtree/test_theme.py
+```
+
+Run individual test methods
+```shell
+PYTHONPATH=src python  -m pytest --capture=no ./test/adtree/test_theme.py -k "metadata"
+```
+
 
 ## Release to Github and PyPi
 

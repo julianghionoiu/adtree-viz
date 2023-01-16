@@ -2,20 +2,21 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
+from adtree.analysers import IsDefendedAnalyser
 from adtree.models import Node, NodeType, ADTree
 
 
 class Theme(ABC):
     @abstractmethod
-    def get_graph_attrs(self, tree: ADTree):
+    def get_graph_attrs(self, tree: ADTree) -> dict:
         pass
 
     @abstractmethod
-    def get_node_attrs_for(self, node: Node):
+    def get_node_attrs_for(self, node: Node) -> dict:
         pass
 
     @abstractmethod
-    def get_edge_attrs_for(self, node_parent: Node, node_child: Node):
+    def get_edge_attrs_for(self, node_parent: Node, node_child: Node) -> dict:
         pass
 
 
@@ -99,30 +100,42 @@ class RedBlueFillTheme(BaseTheme):
 class RedGreenOutlineTheme(BaseTheme):
 
     def get_node_attrs_for(self, node: Node):
+        default_style = "filled, setlinewidth(3)"
+
         base_attrs = super().get_node_attrs_for(node) | {
             "color": "#000000",
             "fillcolor": "#ffffff",
             "margin": "0.1",
-            "style": "setlinewidth(3)",
+            "style": default_style,
         }
 
+        # Process attr based on node types
+        node_type_attrs = base_attrs
         if node.get_node_type() == NodeType.ATTACK:
-            return base_attrs | {
+            node_type_attrs |= {
                 "shape": "ellipse",
                 "color": "#ff5c5c",
+                "style": default_style,
             }
         elif node.get_node_type() == NodeType.DEFENCE:
-            return base_attrs | {
+            node_type_attrs |= node_type_attrs | {
                 "shape": "box",
                 "color": "#27B011",
+                "style": default_style,
             }
         elif node.get_node_type() == NodeType.AND_GATE:
-            return base_attrs | {
+            node_type_attrs |= node_type_attrs | {
                 "shape": "triangle",
                 "color": "#ff5c5c",
-                "fillcolor": "#ff5c5c",
                 "margin": "0.05",
-                "style": "rounded, setlinewidth(3)",
+                "style": "rounded, "+default_style,
             }
-        else:
-            return base_attrs
+
+        # Process attr based on metadata
+        metadata_attrs = node_type_attrs
+        if node.has_metadata(IsDefendedAnalyser.METADATA_KEY):
+            fillcolor = "#C8FFCB" if node.get_metadata(IsDefendedAnalyser.METADATA_KEY) else "#FFD3D6"
+            metadata_attrs |= {
+                "fillcolor": fillcolor,
+            }
+        return metadata_attrs
