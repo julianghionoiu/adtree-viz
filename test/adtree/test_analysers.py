@@ -27,6 +27,9 @@ def test_is_defended(approvals):
 
     analyser = IsDefendedAnalyser()
     analyser.analyse_tree(tree)
+
+
+
     approvals.verify(tree=tree,
                      theme=CustomIsDefendedTheme(),
                      test_code=inspect.currentframe().f_code)

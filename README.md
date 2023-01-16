@@ -96,6 +96,72 @@ And another file with one subtree expanded:
 ![attack-defence tree](images/test_trees.test_references_some_toggled.expected.dot.png)
 
 
+## Analysing trees
+
+Currently, there is only one analyser available, the IsDefendedAnalyser.
+Traverse the tree and mark each nodes as either defended or undefended
+A node is considered defended if:
+ - is a Defence node and has no Attack children
+ - is an Attack node and all child nodes are defended nodes
+ - is an AndGate and at least one child node is defended
+
+Example with custom rendering of the defended nodes
+```python
+from adtree.models import NodeType, Node, Attack, ADTree, Defence, AndGate
+from adtree.analysers import IsDefendedAnalyser
+from adtree.renderer import Renderer
+from adtree.themes import NoFormatTheme
+
+class CustomIsDefendedTheme(NoFormatTheme):
+    def get_node_attrs_for(self, node: Node):
+        metadata_attrs = {
+            "style": "filled"
+        }
+        if node.get_node_type() == NodeType.DEFENCE:
+            metadata_attrs |= {
+                "shape": "box",
+            }
+        if node.get_node_type() == NodeType.AND_GATE:
+            metadata_attrs |= {
+                "shape": "triangle",
+            }
+        if node.has_metadata(IsDefendedAnalyser.METADATA_KEY):
+            fillcolor = "#C8FFCB" if node.get_metadata(IsDefendedAnalyser.METADATA_KEY) else "#FFD3D6"
+            metadata_attrs |= {
+                "fillcolor": fillcolor,
+            }
+        return metadata_attrs
+
+tree = ADTree("REFS.01", Attack("the goal", [
+    Attack("path1", [
+        Defence("defend path1", [
+            Attack("path1 defence defeated")
+        ])
+    ]),
+    Attack("path2", [
+        Attack("path2.1"),
+        AndGate([
+            Attack("path3.1"),
+            Attack("path3.2", [
+                Defence("defended")
+            ]),
+        ]),
+    ]),
+]))
+
+analyser = IsDefendedAnalyser()
+analyser.analyse_tree(tree)
+
+theme = CustomIsDefendedTheme()
+renderer = Renderer(theme=theme, output_format="png", view=False)
+
+# Default is to not expand
+renderer.render(tree=tree, filename="default")
+```
+
+The above should produce an attack-defence tree like this:
+![attack-defence tree](images/test_analysers.test_is_defended.expected.dot.png)
+
 
 ## Development
 
